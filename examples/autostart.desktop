@@ -1,0 +1,12 @@
+# XDG autostart entry. `autostart install --desktop` writes the real file to
+# ${XDG_CONFIG_HOME:-~/.config}/autostart/zlegbot-autostart.desktop
+# This copy uses placeholder paths.
+
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=zlegbot-autostart
+Comment=Run declared recovery steps after login
+Exec=/usr/local/bin/autostart run --config /opt/autostart/autostart.yaml
+Terminal=false
+X-GNOME-Autostart-enabled=true

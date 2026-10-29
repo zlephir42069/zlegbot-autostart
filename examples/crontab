@@ -1,0 +1,15 @@
+# `autostart install --crontab` writes this block for you. The lines below
+# are what that command installs. Do not paste a second copy by hand.
+# Replace the paths. Keep real webhook URLs out of the crontab and out of git.
+#
+# AUTOSTART_STATUS_URL=https://example.com/hooks/autostart
+#
+# # BEGIN autostart:zlegbot-autostart
+# @reboot /usr/local/bin/autostart run --config /opt/autostart/autostart.yaml
+# # END autostart:zlegbot-autostart
+#
+# A recovery step with marker `jobs` is a different block, for example:
+#
+# # BEGIN autostart:jobs
+# 15 * * * * /usr/local/bin/hourly-job
+# # END autostart:jobs

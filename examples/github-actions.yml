@@ -1,0 +1,33 @@
+# Scheduled autostart run for when the machine is off.
+#
+# Copy this file to .github/workflows/autostart.yml.
+# It runs the portable steps in examples/cloud.yaml: directories, restore,
+# checksum, and a health command. It does not reinstall a crontab or restart
+# a process on a computer that is powered off. Those steps stay in the
+# on-machine autostart.yaml.
+#
+# GitHub may delay a scheduled run. workflow_dispatch starts a run on demand.
+# examples/cloud.yaml has no webhook. To post a status line, add a notify
+# block that reads ${AUTOSTART_STATUS_URL} and pass that Actions secret
+# in the step env.
+
+name: autostart
+
+on:
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - run: python -m pip install .
+      - run: autostart run --config examples/cloud.yaml

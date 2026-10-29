@@ -1,0 +1,23 @@
+# systemd --user unit. `autostart install --systemd` writes the real file to
+# ${XDG_CONFIG_HOME:-~/.config}/systemd/user/zlegbot-autostart.service
+# and prints the enable command. It does not run systemctl.
+#
+# systemctl --user daemon-reload
+# systemctl --user enable --now zlegbot-autostart.service
+#
+# A user unit starts at boot without a login only when lingering is on:
+# loginctl enable-linger
+# This copy uses placeholder paths.
+
+[Unit]
+Description=Run zlegbot-autostart recovery steps
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/autostart
+ExecStart=/usr/local/bin/autostart run --config /opt/autostart/autostart.yaml
+
+[Install]
+WantedBy=default.target
